@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Typography, Select, Row, Col, Avatar, Card } from "antd";
 import moment from "moment";
 import { useGetCryptoNewsQuery } from "../services/CryptoNews";
 import { useState } from "react";
 import { useGetCryptoCurrencyQuery } from "../services/CryptoAPI";
 import { Loader } from "../components";
-
 
 const { Text, Title } = Typography;
 const { Option } = Select;
@@ -18,13 +18,13 @@ const demoImage =
  * @returns
  */
 const News = ({ simplified }: { simplified?: boolean }) => {
-	const [newsCategory,setNewsCategory] = useState("Cryptocurrencies")
+	const [newsCategory, setNewsCategory] = useState("Cryptocurrencies");
 	const { data } = useGetCryptoCurrencyQuery("100");
 	const { data: cryptoList } = useGetCryptoNewsQuery({
 		newsCategory,
 		count: simplified ? "6" : "12",
 	});
-	
+
 	if (!cryptoList?.value) return <Loader />;
 
 	return (
@@ -36,26 +36,29 @@ const News = ({ simplified }: { simplified?: boolean }) => {
 						className="select-news"
 						placeholder="Select A Crypto"
 						optionFilterProp="children"
-						onChange={(value)=> setNewsCategory(value)}
-						filterOption={(input, option) => option?.children?.indexOf(input.toLowerCase()) >= 0}
+						onChange={(value) => setNewsCategory(value)}
+						filterOption={(input, option: any) =>
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any 
+							option?.children?.indexOf(input.toLowerCase()) >= 0
+						}
 					>
-							<Option value="Cryptocurrency" >
-								Cryptocurrency
+						<Option value="Cryptocurrency">Cryptocurrency</Option>
+						{data?.data?.coins?.map((coin) => (
+							<Option key={coin.uuid} value={coin.name}>
+								{coin.name}
 							</Option>
-							{data?.data?.coins?.map(coin=>
-								<Option key={coin.uuid} value={coin.name}>{coin.name}</Option>
-								)}
+						))}
 					</Select>
 				</Col>
 			)}
-			{cryptoList.value.map((news,index) => (
-				<Col xs={24} md={12} lg={8} key={index+1}>
-          
+			{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+			{cryptoList.value.map((news: any, index) => (
+				<Col xs={24} md={12} lg={8} key={index + 1}>
 					<Card hoverable className="news-card">
 						<a href={news.url} target="_blank" rel="noreferrer">
 							<div className="news-image-container">
 								<Title className="news-title" level={5}>
-									{news.name}c
+									{news.name}
 								</Title>
 								<img
 									style={{ maxWidth: "200px" }}
@@ -86,7 +89,7 @@ const News = ({ simplified }: { simplified?: boolean }) => {
 								</div>
 								<Text>
 									{moment(news.datePublished)
-										.startOf("ss")
+										.startOf("s")
 										.fromNow()}
 								</Text>
 							</div>
