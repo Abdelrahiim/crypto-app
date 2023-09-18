@@ -27,7 +27,7 @@ Crypto Verse gets all news about crypto from a variety of sources and presents i
 
 ### Contact us
 
-If you have any questions or feedback, please contact us at [eng_abdelrhiim@yahoo.com]eng_abdelrhiim@yahoo.com
+If you have any questions or feedback, please contact us at eng_abdelrhiim@yahoo.com
 
 ### License
 
