@@ -33,6 +33,7 @@ a:hover{
     width: 100%;
     margin-top: 1rem;
     
+    
 }
 .routes{
     padding: 20px;
@@ -107,7 +108,7 @@ a:hover{
     .main{
         flex: 1;
         margin-top: 90px;
-        margin-left: 0px;
+        margin-left: 1rem;
         margin-right: 10px;
     }
 
